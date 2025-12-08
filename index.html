@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Star Light Mobile Detailing</title>
+  <style>
+    :root{
+      --aqua:#4fc3f7;
+      --aqua-light:#81d4fa;
+      --navy:#1b2a41;
+      --glass: rgba(255,255,255,0.35);
+    }
+
+    *{box-sizing:border-box}
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background: linear-gradient(to bottom, #e9f7ff, #cfefff);
+      color: var(--navy);
+      -webkit-font-smoothing:antialiased;
+    }
+
+    header {
+      position:sticky;top:0;z-index:40;
+      background: linear-gradient(to right, #dff6ff, #bde8ff);
+      padding: 12px 20px;
+      display:flex;align-items:center;justify-content:space-between;
+      border-bottom: 1px solid #9fdcff;
+      backdrop-filter: blur(6px);
+    }
+
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo-wrap{width:64px;height:64px;display:flex;align-items:center}
+
+    nav{display:flex;gap:14px}
+    nav a{color:var(--navy);text-decoration:none;font-weight:600;position:relative;padding:6px 4px}
+    nav a::after{content:"";position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--aqua);transition:width .28s}
+    nav a:hover::after{width:100%}
+
+    /* animated premium logo */
+    .logo-svg{width:64px;height:64px}
+    .logo-wave{transform-origin:50% 50%}
+    .brand-title{font-size:1.1rem;color:var(--aqua);letter-spacing:1px;text-shadow:0 6px 18px rgba(79,195,247,0.12)}
+
+    .hero {
+      background: url('placeholder-image.jpg') center/cover no-repeat;
+      height: 420px;
+      display: flex;align-items:center;justify-content:center;text-align:center;color:#fff;position:relative;overflow:hidden;margin-bottom:20px
+    }
+
+    .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(22,73,108,0.18),rgba(79,195,247,0.06));backdrop-filter:blur(2px)}
+
+    .hero .hero-card{position:relative;z-index:2;padding:28px 34px;border-radius:14px;background:linear-gradient(135deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02));backdrop-filter: blur(6px);border:1px solid rgba(167,227,255,0.18)}
+    .hero h2{margin:0;font-size:2.6rem;color:var(--aqua);}
+
+    /* sections */
+    .section{max-width:1100px;margin:24px auto;padding:8px 20px}
+    .section h2{color:var(--aqua);text-align:center;margin-bottom:16px}
+
+    /* glass cards */
+    .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+    .service-card{background:var(--glass);padding:20px;border-radius:16px;border:1px solid #a7e3ff;backdrop-filter:blur(10px);box-shadow:0 6px 20px rgba(79,195,247,0.16);transition:transform .36s,box-shadow .36s,opacity .6s}
+    .service-card:hover{transform:translateY(-8px);box-shadow:0 18px 40px rgba(79,195,247,0.22)}
+
+    /* gallery & slider */
+    .gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+    .thumb{height:160px;object-fit:cover;border-radius:10px;border:1px solid rgba(0,0,0,0.06)}
+
+    /* before-after slider */
+    .ba-wrap{max-width:900px;margin:24px auto;border-radius:12px;overflow:hidden;position:relative}
+    .ba-img{width:100%;display:block}
+    .ba-overlay{position:absolute;left:0;top:0;height:100%;width:50%;overflow:hidden}
+    .ba-handle{position:absolute;left:50%;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--aqua),#e0f7ff);cursor:ew-resize;transform:translateX(-50%)}
+
+    /* booking form */
+    .booking-card{max-width:700px;margin:0 auto;padding:20px;border-radius:12px;background:var(--glass);border:1px solid rgba(167,227,255,0.18);backdrop-filter:blur(8px)}
+    .field{display:flex;gap:10px;margin-bottom:10px}
+    .field input,.field textarea{flex:1;padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.06)}
+
+    /* glossy reveal / scroll animations */
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.in-view{opacity:1;transform:translateY(0)}
+    .gloss{position:relative;overflow:hidden}
+    .gloss::after{content:"";position:absolute;left:-120%;top:-10%;width:60%;height:120%;background:linear-gradient(120deg,transparent,rgba(255,255,255,0.6),transparent);transform:skewX(-20deg);opacity:0;transition:all .9s ease}
+    .gloss.in-view::after{left:120%;opacity:1}
+
+    footer{background:linear-gradient(to right,#dff6ff,#bde8ff);padding:18px;text-align:center;color:var(--navy);border-top:1px solid #c9f0ff;backdrop-filter:blur(6px);margin-top:40px}
+
+    /* responsive */
+    @media(max-width:720px){.hero{height:320px}.hero h2{font-size:1.6rem}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo-wrap">
+        <!-- Animated premium SVG logo: water + car silhouette + glossy sweep -->
+        <svg class="logo-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1">
+              <stop offset="0%" stop-color="#81d4fa"/>
+              <stop offset="100%" stop-color="#4fc3f7"/>
+            </linearGradient>
+          </defs>
+          <circle cx="60" cy="60" r="54" fill="none" stroke="url(#g1)" stroke-width="3" opacity="0.95"/>
+          <!-- car arc -->
+          <path d="M18 78 Q60 22 102 78" stroke="url(#g1)" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <!-- water droplet / star shine -->
+          <g class="logo-wave">
+            <path d="M60 32 C66 40 80 44 86 56 C70 48 50 58 50 72 C44 58 38 50 60 32 Z" fill="#e6fbff" opacity="0.9"/>
+            <path d="M60 30 L64 44 L78 46 L66 54 L70 68 L60 58 L50 68 L54 54 L42 46 L56 44 Z" fill="url(#g1)" opacity="0.95"/>
+          </g>
+          <!-- shiny sweep -->
+          <rect class="sweep" x="-120" y="10" width="120" height="100" fill="rgba(255,255,255,0.45)" transform="skewX(-18)" opacity="0.0">
+            <animate attributeName="x" from="-120" to="220" dur="2.6s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0;1;0" dur="2.6s" repeatCount="indefinite"/>
+          </rect>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-title">Star Light</div>
+        <div style="font-size:.78rem;color:var(--navy);margin-top:4px">Mobile Detailing</div>
+      </div>
+    </div>
+
+    <nav>
+      <a href="#services">Services</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#booking">Booking</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div class="hero-card reveal gloss">
+      <h2>Professional • Convenient • High-Quality Detailing</h2>
+      <p style="margin-top:8px;color:#03314d;opacity:0.9">We bring the showroom shine — at your home or office.</p>
+    </div>
+  </div>
+
+  <section class="section" id="services">
+    <h2>Our Services</h2>
+    <div class="services">
+      <div class="service-card reveal gloss">
+        <h3>Interior Detail</h3>
+        <p>Full interior cleaning, vacuum, plastics, leather conditioning, odor removal.</p>
+      </div>
+      <div class="service-card reveal gloss">
+        <h3>Exterior Detail</h3>
+        <p>Hand wash, clay bar, polish, sealant, wheel decontamination, tire dressing.</p>
+      </div>
+      <div class="service-card reveal gloss">
+        <h3>Ceramic & Coatings</h3>
+        <p>Long-lasting hydrophobic protection for paint, glass, and wheels.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="gallery">
+    <h2>Gallery</h2>
+    <p style="text-align:center;color:#03405b;opacity:.86">Before & afters, close-ups, and shine shots.</p>
+
+    <!-- Before/After slider -->
+    <div class="ba-wrap reveal">
+      <img class="ba-img" src="ba-after.jpg" alt="After" />
+      <div class="ba-overlay" id="baOverlay">
+        <img src="ba-before.jpg" alt="Before" style="width:100%;height:100%;object-fit:cover;display:block" />
+      </div>
+      <div class="ba-handle" id="baHandle" aria-hidden="true"></div>
+    </div>
+
+    <div class="gallery-grid">
+      <!-- placeholders -->
+      <img class="thumb reveal" src="thumb1.jpg" alt="thumb1" />
+      <img class="thumb reveal" src="thumb2.jpg" alt="thumb2" />
+      <img class="thumb reveal" src="thumb3.jpg" alt="thumb3" />
+      <img class="thumb reveal" src="thumb4.jpg" alt="thumb4" />
+    </div>
+  </section>
+
+  <section class="section" id="booking">
+    <h2>Book a Detail</h2>
+    <div class="booking-card reveal gloss">
+      <p style="margin-bottom:10px;color:#03314d">Choose a date & time or request a quote. (Replace this with your Calendly/Square link if you use one.)</p>
+      <form id="bookingForm">
+        <div class="field">
+          <input type="text" name="name" placeholder="Full name" required />
+          <input type="tel" name="phone" placeholder="Phone" required />
+        </div>
+        <div class="field">
+          <input type="email" name="email" placeholder="Email" required />
+          <input type="text" name="service" placeholder="Requested service (e.g. Full Detail)" />
+        </div>
+        <div class="field">
+          <input type="date" name="date" />
+          <input type="time" name="time" />
+        </div>
+        <div style="margin-bottom:10px"><textarea name="notes" placeholder="Vehicle details, location, notes" rows="3" style="width:100%;"></textarea></div>
+        <div style="text-align:center"><button type="submit" style="background:var(--aqua);border:none;padding:10px 18px;border-radius:8px;color:white;cursor:pointer;font-weight:700">Request Booking</button></div>
+      </form>
+      <p style="margin-top:8px;color:#06324d;opacity:.9;font-size:.92rem">Tip: To use a scheduling widget, replace this form with your Calendly or Square embed code.</p>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <h2>About Us</h2>
+    <p class="reveal">Star Light Mobile Detailing is a family-owned detailing business focused on convenience, quality, and sustainable products. We operate fully mobile — we come to your vehicle.</p>
+  </section>
+
+  <section class="section" id="contact">
+    <h2>Contact</h2>
+    <p style="text-align:center;" class="reveal">Call or Text: <strong>(555) 555‑5555</strong></p>
+    <p style="text-align:center;" class="reveal">Email: <strong>info@starlightdetail.com</strong></p>
+  </section>
+
+  <footer>
+    &copy; 2025 Star Light Mobile Detailing. All rights reserved.
+  </footer>
+
+  <script>
+    // Scroll-triggered reveals with glossy sweep
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('in-view');
+        }
+      });
+    },{threshold:0.18});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+    document.querySelectorAll('.gloss').forEach(el=>observer.observe(el));
+
+    // Before/After slider logic
+    (function(){
+      const wrap = document.querySelector('.ba-wrap');
+      if(!wrap) return;
+      const overlay = document.getElementById('baOverlay');
+      const handle = document.getElementById('baHandle');
+      const rect = ()=>wrap.getBoundingClientRect();
+      let dragging=false;
+      const setPos = (x)=>{
+        const r = rect();
+        let pct = (x - r.left)/r.width;
+        pct = Math.max(0,Math.min(1,pct));
+        overlay.style.width = (pct*100)+'%';
+        handle.style.left = (pct*100)+'%';
+      }
+      // init center
+      setPos(wrap.getBoundingClientRect().left + wrap.getBoundingClientRect().width/2);
+
+      handle.addEventListener('mousedown',()=>dragging=true);
+      window.addEventListener('mouseup',()=>dragging=false);
+      window.addEventListener('mousemove',(ev)=>{ if(dragging) setPos(ev.clientX); });
+      // touch
+      handle.addEventListener('touchstart',()=>dragging=true);
+      window.addEventListener('touchend',()=>dragging=false);
+      window.addEventListener('touchmove',(ev)=>{ if(ev.touches && ev.touches[0]) setPos(ev.touches[0].clientX); });
+
+      // allow clicking on area to move slider
+      wrap.addEventListener('click',(ev)=> setPos(ev.clientX));
+      window.addEventListener('resize',()=> setPos(wrap.getBoundingClientRect().left + wrap.getBoundingClientRect().width/2));
+
+    })();
+
+    // Simple booking form handler (replace with real endpoint or embed)
+    document.getElementById('bookingForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const data = new FormData(this);
+      // NOTE: This demo simply opens mail client. Replace with server-side or scheduling widget.
+      const subject = encodeURIComponent('Booking request from '+(data.get('name')||'') );
+      let body = '';
+      for(const [k,v] of data.entries()){ body += k+': '+v+'\n'; }
+      window.location.href = 'mailto:info@starlightdetail.com?subject='+subject+'&body='+encodeURIComponent(body);
+    });
+  </script>
+</body>
+</html>
